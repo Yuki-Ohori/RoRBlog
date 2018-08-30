@@ -4,7 +4,7 @@ Make a CRUD Blog (REST API)
 
 * https://guides.rubyonrails.org/getting_started.html
 
-## Useful Ruby Command (For Window add 'ruby' before command)
+Useful Ruby Command (For Window add 'ruby' before command)
 
 * Start Server
 
@@ -21,16 +21,3 @@ Make a CRUD Blog (REST API)
 * Migrate Database
 
     `bin/rails db:migrate`
-
-## HTML
-
-* Adding links
-
-    `<%= link_to 'My Blog', controller: 'articles' %>`
-
-* Adding Some Validation - Model Section
-
-    `class Article < ApplicationRecord
-    validates :title, presence: true,
-                        length: { minimum: 5 }
-    end`
