@@ -1,8 +1,8 @@
 class ArticlesController < ApplicationController
-
+    
 
     def index
-        response = RestClient.get('https://yukirubyapi.herokuapp.com/api/v1/movies')
+        response = RestClient.get APIURL
         @articles = JSON.parse response
         # if !json['total'].zero?
         #     else
@@ -12,7 +12,9 @@ class ArticlesController < ApplicationController
     end
     
     def show
-        @article = Article.find(params[:id])
+        response = RestClient.get APIURL + '/' + params[:id]
+        json = JSON.parse response
+        @article = json['data']
     end
     
     def new
@@ -20,13 +22,37 @@ class ArticlesController < ApplicationController
     end
 
     def create
-        @article = Article.new(article_params)
+        data = {
+            "title" => params[:article][:title],
+            "content" => params[:article][:content]
+        }.to_json
+        # @article = Article.new(article_params)
+        response = RestClient.post APIURL, data, { content_type: :json }
+        redirect_to "/articles"
+        # if @article.save
+        #     redirect_to @article
+        # else
+        #     render 'new'
+        # end
+    end
+
+    def update
+        @article = Article.find(params[:id])
+        data = {
+            "title" => params[:article][:title],
+            "content" => params[:article][:content]
+        }.to_json
        
-        if @article.save
-            redirect_to @article
+        if @article.update(article_params)
+            redirect_to articles_path
         else
-            render 'new'
+          render 'edit'
         end
+    end
+
+    def destroy
+        response = RestClient.delete APIURL + '/' + params[:id]
+        redirect_to articles_path
     end
     
     private

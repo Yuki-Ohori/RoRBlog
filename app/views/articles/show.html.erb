@@ -1,11 +1,11 @@
 <p>
   <strong>Title:</strong>
-  <%= @article.title %>
+  <%= @article['title'] %>
 </p>
  
 <p>
   <strong>Text:</strong>
-  <%= @article.text %>
+  <%= @article['content'] %>
 </p>
 
 <%= link_to 'Back', articles_path %>
