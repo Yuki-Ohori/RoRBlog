@@ -1,6 +1,14 @@
 class ArticlesController < ApplicationController
+
+
     def index
-        @articles = Article.all
+        response = RestClient.get('https://yukirubyapi.herokuapp.com/api/v1/movies')
+        @articles = JSON.parse response
+        # if !json['total'].zero?
+        #     else
+        #     render :new
+        #     end
+        # end
     end
     
     def show
